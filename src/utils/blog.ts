@@ -26,9 +26,9 @@ export async function getInitialBlogs(): Promise<BlogFetchResponse> {
     const { edges, pageInfo } = data.publication.posts;
     const posts: Blog[] = edges.map((edge) => edge.node);
     const endCursor = pageInfo.hasNextPage ? pageInfo.endCursor : null;
-    return { posts, endCursor };
+    return { posts, endCursor, error: null };
   } catch (error) {
     // Re-throwing the error will be caught by the nearest error.tsx boundary
-    throw error;
+    return { error: (error as Error).message, posts: [], endCursor: null };
   }
 }

@@ -1,10 +1,14 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import NextLink from "next/link";
+import { Github, Linkedin, Mail, Twitter, Youtube } from "lucide-react";
+import { SiDiscord } from "react-icons/si";
+
+import { Link } from "@/config/i18n/navigation";
 
 const quickLinks = [
-  { href: "https://lu.ma/reactkolkata", label: "Events" },
-  { href: "https://chat.whatsapp.com/JmCp4Za9ap0DpER0Gd4hAs", label: "Join Us" },
+  { href: "https://lu.ma/reactkolkata", label: "Events", external: true },
+  { href: "/contributors", label: "Contributors", external: false },
+  { href: "https://chat.whatsapp.com/JmCp4Za9ap0DpER0Gd4hAs", label: "Join Us", external: true },
 ];
 
 const Footer = () => {
@@ -33,13 +37,20 @@ const Footer = () => {
           <ul className="mt-3 space-y-2">
             {quickLinks.map((l) => (
               <li key={l.href}>
-                <Link
-                  href={l.href}
-                  target="_blank"
-                  className="text-sm text-slate-400 hover:text-slate-200"
-                >
-                  {l.label}
-                </Link>
+                {l.external ? (
+                  <NextLink
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-slate-400 hover:text-slate-200"
+                  >
+                    {l.label}
+                  </NextLink>
+                ) : (
+                  <Link href={l.href} className="text-sm text-slate-400 hover:text-slate-200">
+                    {l.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -81,6 +92,24 @@ const Footer = () => {
                 rel="noreferrer"
               >
                 <Linkedin className="h-5 w-5" />
+              </a>
+              <a
+                className="hover:text-white"
+                aria-label="youtube"
+                href="https://www.youtube.com/@ReactPlayIO"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Youtube className="h-5 w-5" />
+              </a>
+              <a
+                className="hover:text-white"
+                aria-label="Discord"
+                href="https://discord.gg/VRVfn2Vss"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <SiDiscord className="h-5 w-5" />
               </a>
             </li>
           </ul>
